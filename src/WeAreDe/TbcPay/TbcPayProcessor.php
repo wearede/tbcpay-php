@@ -72,7 +72,7 @@ class TbcPayProcessor
      * @var string
      */
     public $language;
-
+    
     /**
      * visible on account statement, optional (up to 99 latin characters)
      * @var string
@@ -129,6 +129,10 @@ class TbcPayProcessor
         curl_setopt($curl, CURLOPT_SSLKEY, $this->cert_path);
         curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $this->cert_pass);
         curl_setopt($curl, CURLOPT_URL, $this->submit_url);
+        
+        if ($this->client_ip_addr != '') {
+            curl_setopt($curl, CURLOPT_INTERFACE, $this->client_ip_addr);
+        }
 
         $result = curl_exec($curl);
 
